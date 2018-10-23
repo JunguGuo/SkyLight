@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+
+  <title>Node File Uploads</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
+  <link rel="stylesheet" href="../css/gallery-grid.css">
+
+
+
+</head>
+<body>
+  <div class="container">
+    <h1>Photo Upload</h1>
+    <%= typeof msg != 'undefined' ? msg : '' %>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <div class="file-field input-field">
+        <div class="btn grey">
+          <span>Upload Picture of Sky</span>
+          <input name="myImage" type="file">
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div>
+      </div>
+      <button type="submit" class="btn">Submit</button>
+    </form>
+    <br>
+    <img src="<%= typeof file != 'undefined' ? file : '' %>" class="responsive-img">
+    <!-- <h1>Gallery</h1> -->
+    <div class="container gallery-container">
+
+        <h1>Sky Gallery</h1>
+
+        <p class="page-description text-center">Together we own our sky.</p>
+
+        <div class="tz-gallery">
+
+            <div class="row" id="sky-gallery">
+                <div class="col-sm-6 col-md-4">
+                    <a class="lightbox" href="uploads/images/park.jpg">
+                        <img src="uploads/images/park.jpg">
+                    </a>
+                </div>
+              
+            </div>
+
+        </div>
+
+    </div>
+  </div>
+
+<!-- gallery -->
+<script type="text/javascript">
+  var files = "<%= typeof files != 'undefined' ? files : '' %>"
+  var skyImages = files.split(',');
+  skyImages.forEach(function(element) {
+  console.log(element);
+  var node = document.createElement("div");
+  node.setAttribute("class", "col-sm-6 col-md-4");
+
+  var node2 = document.createElement("a");
+  node2.setAttribute("class", "lightbox");
+  node2.setAttribute("href", element);
+  node.appendChild(node2);
+
+  var node3 = document.createElement("img");
+  node3.setAttribute("src", element);
+  node2.appendChild(node3);
+
+  document.getElementById("sky-gallery").appendChild(node);
+
+});
+</script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+  <script>
+      baguetteBox.run('.tz-gallery');
+  </script>
+<!-- gallery -->
+
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+</body>
+</html>
